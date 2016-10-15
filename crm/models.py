@@ -14,15 +14,15 @@ class Telephone (models.Model):
 class Personne (models.Model):
     nom_de_famille = models.CharField(max_length=120)
     prenom = models.CharField(max_length=120)
-    pere = models.ForeignKey('self', null=True)
-    mere = models.ForeignKey('self', null=True)
-    partenaires = models.ManyToManyField('Partenaire', null=True)
-    enfants = models.ManyToManyField('Enfant', null=True)
+    pere = models.ForeignKey('self', null=True, related_name="+")
+    mere = models.ForeignKey('self', null=True, related_name="+")
+    partenaires = models.ManyToManyField('Partenaire')
+    enfants = models.ManyToManyField('self', symmetrical=False)
     date_de_naissance = models.DateField(null=True)
     date_de_deces = models.DateField(null=True)
     est_paroissien = models.BooleanField(default=False)
     adressePostale = models.ForeignKey(AdressePostale, null=True)
-    telephones = models.ManyToManyField(Telephone, null=True)
+    telephones = models.ManyToManyField(Telephone)
 
 class Partenaire (models.Model):
     TYPES_DE_RELATION = (('M', 'Mariage'),
@@ -34,5 +34,8 @@ class Partenaire (models.Model):
     type_de_relation = models.CharField(max_length=1, choices=TYPES_DE_RELATION)
     date_du_statut = models.DateField(null=True)
 
-class Enfant (models.Model):
-    enfant = models.ForeignKey(Personne)
+# class Pere (models.Model):
+#     pere = models.ForeignKey(Personne)
+#
+# class Mere (models.Model):
+#     mere = models.ForeignKey(Personne)
