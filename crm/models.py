@@ -6,7 +6,7 @@ class AdressePostale (models.Model):
     code_postal = models.PositiveSmallIntegerField()
 
 class Telephone (models.Model):
-    TYPES_DE_TELEPHONES = (('M','Mobile'),
+    TYPES_DE_TELEPHONES = (('M', 'Mobile'),
                            ('F', 'Fixe'))
     numero_de_telephone = models.CharField(max_length=100)
     type_de_telephone = models.CharField(max_length=1, choices=TYPES_DE_TELEPHONES)
@@ -26,10 +26,10 @@ class Personne (models.Model):
 
 class Partenaire (models.Model):
     TYPES_DE_RELATION = (('M', 'Mariage'),
-                ('V', 'Veuvage'),
-                ('D', 'Divorcé'),
-                ('C', 'Concubinage'),
-                ('S', 'Séparé'))
+                         ('V', 'Veuvage'),
+                         ('D', 'Divorcé'),
+                         ('C', 'Concubinage'),
+                         ('S', 'Séparé'))
     partenaire = models.ForeignKey(Personne)
     type_de_relation = models.CharField(max_length=1, choices=TYPES_DE_RELATION)
     date_du_statut = models.DateField(null=True)
